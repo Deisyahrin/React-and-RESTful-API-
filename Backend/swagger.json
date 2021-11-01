@@ -1,0 +1,269 @@
+{
+  "swagger": "2.0",
+  "info": {
+      "description": "repository API",
+      "version": "1.0.0",
+      "title": "Chapter 8",
+      "contact": {
+          "email": "Laodeisyahrin@gmail.com"
+      }
+  },
+  "host": "localhost:5000",
+  "basePath": "/api",
+  "tags": [{
+      "name": "player",
+      "description": "Chapter 8 Binar"
+  }
+],
+  "paths": {
+      "/players": {
+          "post": {
+              "tags": [
+                  "player"
+              ],
+              "summary": "create new player",
+              "description": "menambahkan player baru",
+              "OperationId": "addPlayer",
+              "consumes": [
+                  "application/json"
+              ],
+              "produces": [
+                  "application/json"
+              ],
+              "parameters": [{
+                  "in": "body",
+                  "name": "body",
+                  "description": "",
+                  "required": true,
+                  "schema": {
+                      "$ref": "#/definitions/Player"
+                  }
+              }],
+              "responses": {
+                  "201": {
+                      "description": "Success creating new player",
+                      "result": "success"
+                  },
+                  "400": {
+                      "description": "username or email or password field cannot be empty.",
+                      "result": "failed"
+                  },
+                  "500": {
+                      "description": "Some error occurred while creating the Player.",
+                      "result": "failed"
+                  }
+              }
+          },
+          "get": {
+              "tags": [
+                  "player"
+              ],
+              "summary": "Find player",
+              "description": "",
+              "OperationId": "findPlayer",
+              "consumes": [
+                  "application/json"
+              ],
+              "produces": [
+                  "application/json"
+              ],
+              "parameters": [{
+                  "in": "body",
+                  "name": "body",
+                  "description": "",
+                  "required": true,
+                  "schema": {
+                      "$ref": "#/definitions/Player"
+                  }
+              }],
+              "responses": {
+                  "200": {
+                      "description": "Success retrieving all players",
+                      "result": "SUCCESS"
+                  },
+                  "500": {
+                      "description": "Some error occurred while retrieving players.",
+                      "result": "FAILED"
+                  }
+              }
+          }
+      },
+      "players/:id": {
+          "get": {
+              "tags": [
+                  "player"
+              ],
+              "summary": "Find Player by ID",
+              "description": "",
+              "operationId": "findPlayerById",
+              "produces": [
+                  "application/json"
+              ],
+              "parameters": [{
+                  "name": "id",
+                  "in": "query",
+                  "description": "mencari player berdasarkan id",
+                  "required": true,
+                  "type": "array"
+              }],
+              "responses": {
+                  "200": {
+                      "description": "Success finding player by id"
+                  },
+                  "500": {
+                      "description": "Error retrieving Player with id"
+                  }
+              }
+          },
+          "put": {
+              "tags": [
+                  "player"
+              ],
+              "summary": "Update Player",
+              "description": "",
+              "operationId": "updatePlayer",
+              "produces": [
+                  "application/json"
+              ],
+              "parameters": [{
+                  "name": "id",
+                  "in": "path",
+                  "description": "id dari player",
+                  "required": true,
+                  "type": "integer"
+              }],
+              "responses": {
+                  "200": {
+                      "description": "Success updating player"
+                  },
+                  "400": {
+                      "description": "Cannot update Player, Maybe Player was not found or req.body is empty!"
+                  },
+                  "500": {
+                      "description": "Error updating player"
+                  }
+              }
+          },
+          "delete": {
+              "tags": [
+                  "player"
+              ],
+              "summary": "Delete Player by ID",
+              "description": "",
+              "operationId": "deletePlayer",
+              "produces": [
+                  "application/json"
+              ],
+              "parameters": [{
+                  "name": "id",
+                  "in": "path",
+                  "description": "id player",
+                  "required": true,
+                  "type": "integer"
+              }],
+              "responses": {
+                  "200": {
+                      "description": "Success deleting player"
+                  },
+                  "400": {
+                      "description": "Cannot delete player"
+                  },
+                  "500": {
+                      "description": "Error deleting player"
+                  }
+              }
+          }
+      },
+      "players/exp/id": {
+          "post": {
+              "tags": [
+                  "player"
+              ],
+              "summary": "Update players Exp",
+              "description": "",
+              "operationId": "UpdatePlayerExp",
+              "produces": [
+                  "application/json"
+              ],
+              "parameters": [{
+                  "name": "id",
+                  "in": "path",
+                  "description": "update exp player",
+                  "required": true,
+                  "type": "integer"
+              }],
+              "responses": {
+                  "200": {
+                      "description": "Success updating player exp"
+                  },
+                  "400": {
+                      "description": "Cannot update player exp"
+                  },
+                  "500": {
+                      "description": "Error updating player exp"
+                  }
+              }
+          }
+      }
+  },
+  "definitions": {
+      "Player": {
+          "type": "object",
+          "properties": {
+              "id": {
+                  "type": "integer",
+                  "format": "int64"
+              },
+              "username" :{
+                  "type": "string"
+              },
+              "email": {
+                  "type": "string"
+              },
+              "password": {
+                  "type": "string"
+              },
+              "experience": {
+                  "type": "integer",
+                  "format": "int64"
+              },
+              "lvl": {
+                  "type": "integer",
+                  "format": "int64"
+              }
+          }
+      }
+  },
+
+
+      "createPlayer": {
+          "type": "object",
+          "required": [ "username", "email", "password", "exp", "lvl" ],
+          "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string",
+                "format": "email"
+                
+              },
+              "password": {
+                "type": "string"
+
+              },
+              "experience": {
+                "type": "integer"
+              },
+              "lvl": {
+                "type": "integer"
+              }
+          }
+      }
+
+
+}
